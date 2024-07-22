@@ -3,22 +3,13 @@ const UserDTO = require('../dto/user.dto');
 const ResponseDTO = require('../dto/response.dto');
 
 class UserService {
+    
     async createUser(userDto) {
-        try {
-            const userId = await UserRepository.createUser(userDto);
-            return new ResponseDTO('success', 'User created successfully', { userId });
-        } catch (error) {
-            return new ResponseDTO('error', error.message, null);
-        }
+        return await UserRepository.createUser(userDto);
     }
 
     async getUserById(id) {
-        try {
-            const user = await UserRepository.getUserById(id);
-            return new ResponseDTO('success', 'User retrieved successfully', user);
-        } catch (error) {
-            return new ResponseDTO('error', error.message, null);
-        }
+        return await UserRepository.getUserById(id);
     }
 
     // Add other methods...

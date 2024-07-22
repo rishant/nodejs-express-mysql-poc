@@ -1,5 +1,4 @@
-class UserDto {
-  
+class User {
     constructor(id, username, email, password, createdAt, updatedAt) {
       this.id = id;
       this.username = username;
@@ -10,5 +9,5 @@ class UserDto {
     }
   }
   
-  module.exports = UserDto;
+  module.exports = User;
   

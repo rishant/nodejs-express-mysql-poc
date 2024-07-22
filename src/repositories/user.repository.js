@@ -1,25 +1,19 @@
 const UserDAO = require('../dao/user.dao');
+const UserMapper = require('../mappers/user.mapper');
 
 class UserRepository {
-    async createUser(user) {
-        return new Promise((resolve, reject) => {
-            UserDAO.createUser(user, (err, userId) => {
-                if (err) reject(err);
-                resolve(userId);
-            });
-        });
+    async createUser(userDto) {
+        const user = UserMapper.toEntity(userDto);
+        const userId = await UserDAO.createUser(user);
+        return userId;
     }
-
+  
     async getUserById(id) {
-        return new Promise((resolve, reject) => {
-            UserDAO.getUserById(id, (err, user) => {
-                if (err) reject(err);
-                resolve(user);
-            });
-        });
-    }
-
+        const user = await UserDAO.getUserById(id);
+        return UserMapper.toDto(user);
+      }
+  
     // Add other methods...
 }
-
+  
 module.exports = new UserRepository();

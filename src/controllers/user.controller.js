@@ -2,19 +2,27 @@ const UserService = require('../services/user.service');
 const UserDTO = require('../dto/user.dto');
 
 class UserController {
+
     async createUser(req, res) {
-        const { username, email, password } = req.body;
-        const userDto = new UserDTO(username, email, password);
-        const response = await UserService.createUser(userDto);
-        res.status(response.status === 'success' ? 201 : 400).json(response);
+        try {
+            const { username, email, password } = req.body;
+            const userDto = new UserDTO(null, username, email, password);
+            const userId = await UserService.createUser(userDto);
+          res.status(201).json({ id: userId });
+        } catch (error) {
+          res.status(500).send(error.message);
+        }
     }
 
     async getUserById(req, res) {
-        const { id } = req.params;
-        const response = await UserService.getUserById(id);
-        res.status(response.status === 'success' ? 200 : 400).json(response);
-    }
-
+        try {
+            const { id } = req.params;
+            const user = await UserService.getUserById(id);
+            user ? res.status(200).json(user) : res.status(404).send('User not found')
+        } catch (error) {
+          res.status(500).send(error.message);
+        }
+      }
     // Add other methods...
 }
 

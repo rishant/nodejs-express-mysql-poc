@@ -1,31 +1,33 @@
 const MysqlDBConnectionPool = require('../utils/db.connection');
 
 class UserDAO {
+
     async createUser(user) {
-        const query = 'INSERT INTO users (username, email, password) VALUES (?, ?, ?)';
+        const connection = await MysqlDBConnectionPool.getConnection();
         try {
-            const connection = await MysqlDBConnectionPool.getConnection();
-            const [result] = await connection.query(query, [user.username, user.email, user.password]);
-            MysqlDBConnectionPool.releaseConnection(connection);
-            return result.insertId;
+          const [result] = await connection.query('INSERT INTO users (username, email, password) VALUES (?, ?, ?)', 
+            [user.username, user.email, user.password]);
+          return result.insertId;
         } catch (err) {
             throw err;
+        } finally {
+            MysqlDBConnectionPool.releaseConnection(connection);
         }
     }
-
+  
     async getUserById(id) {
-        const query = 'SELECT * FROM users WHERE id = ?';
+        const connection = await MysqlDBConnectionPool.getConnection();
         try {
-            const connection = await MysqlDBConnectionPool.getConnection();
-            const [result] = await connection.query(query, [id]);
-            MysqlDBConnectionPool.releaseConnection(connection);
-            return result[0];
+          const [rows] = await connection.query('SELECT * FROM users WHERE id = ?', [id]);
+          return rows[0];
         } catch (err) {
             throw err;
+        } finally {
+            MysqlDBConnectionPool.releaseConnection(connection);
         }
     }
-
+  
     // Add other CRUD methods...
 }
-
+  
 module.exports = new UserDAO();
