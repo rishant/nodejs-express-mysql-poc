@@ -28,24 +28,3 @@ express-mysql-app/
 └── package.json
 
 ```
-
-
-```
-express-mysql-app/
-├── src/
-│   ├── controllers/
-│   │   └── userController.js
-│   ├── models/
-│   │   └── userModel.js
-│   ├── services/
-│   │   └── userService.js
-│   ├── utils/
-│   │   └── db.js
-│   ├── app.js
-│   └── routes.js
-├── Dockerfile
-├── docker-compose.yaml
-├── package.json
-└── .env
-
-```
