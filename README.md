@@ -9,6 +9,16 @@
     
     http://localhost:3000/api-docs
 
+## Key Differences
+```
+Abstraction Level: Repositories generally offer a higher level of abstraction and can include business logic, whereas DAOs are more focused on low-level data access.
+
+Domain vs. Data Access: Repositories are often used in the context of domain-driven design and work with domain entities. DAOs are more concerned with the data access layer and often interact more directly with the database.
+
+Usage Context: Repositories are typically used in applications where domain logic and business rules are significant. DAOs are used where the focus is on managing data access and storage.
+
+In summary, the Repository pattern provides a higher-level abstraction for managing data, often integrating more closely with domain logic, while the DAO pattern provides a lower-level abstraction focused specifically on data persistence and retrieval.
+```
 
 ```
 express-mysql-app/
